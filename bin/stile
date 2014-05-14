@@ -1,0 +1,29 @@
+#!/bin/bash
+
+function usage() {
+  echo $*
+  echo
+  echo "Stile: a maven simplifier"
+  exit 77
+}
+
+function configure() {
+  test "$1" = "/" && usage "Could not find .stilerc in hierarchy"
+  if test -d $1/.stilerc; then 
+    source $1/.stilerc
+  else
+    configure $(dirname $1)
+  fi
+}
+
+function load() {
+  test -d ~/.stile/plugins/$1 || usage "Plugin $1 not found"
+  test -f ~/.stile/plugins/$1/$1 || usage "Plugin $1 not found"
+  source ~/.stile/plugins/$1/$1
+}
+
+
+test "$1" = "stile-verify" || configure $(pwd)
+
+load $1 && $1
+

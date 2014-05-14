@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function stile-verify() {
+  failed=0
+  for each in `find ~/.stile/ -name '*-test.sh'`; do
+    pushd `dirname ${each}` > /dev/null
+    echo -n "$each : "
+    bash ./$(basename $each)
+    if test $? -eq 0; then
+      echo "OK"
+    else
+      echo "FAILED"
+      failed=1
+    fi
+    popd > /dev/null
+  done
+  
+  test "$failed" = "0" || exit 77
+}
