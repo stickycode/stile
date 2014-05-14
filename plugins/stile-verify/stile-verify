@@ -14,6 +14,12 @@ function stile-verify() {
     fi
     popd > /dev/null
   done
-  
-  test "$failed" = "0" || exit 77
+
+  echo  
+  if test "$failed" = "0"; then
+    echo "PASSED"
+  else
+    echo "FAILED"
+    exit 77
+  fi
 }
