@@ -1,0 +1,4 @@
+stile
+=====
+
+Simplified maven interaction
