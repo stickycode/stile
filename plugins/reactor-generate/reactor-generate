@@ -1,0 +1,31 @@
+#!/bin/bash
+
+test -n "${STILE_DOMAIN}" || fail "STILE_DOMAIN is required for reactor-generate"
+test -n "${STILE_PROJECT}" || fail "STILE_PROJECT is required for reactor-generate"
+
+function reactor-generate() {
+  cat > reactor.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+        <parent>
+                <groupId>${STILE_DOMAIN}.parent</groupId>
+                <artifactId>${STILE_PROJECT}-parent-distribution</artifactId>
+                <version>1.6</version>
+        </parent>
+        <modelVersion>4.0.0</modelVersion>
+
+        <groupId>${STILE_DOMAIN}</groupId>
+        <artifactId>${STILE_PROJECT}-reactor</artifactId>
+        <version>0</version>
+        <packaging>pom</packaging>
+
+        <name>\${project.artifactId}</name>
+        <modules>
+EOF
+
+  cat >> reactor.xml <<EOF
+        </modules>
+</project>
+EOF
+}
