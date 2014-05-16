@@ -1,5 +1,0 @@
-#!/bin/bash
-
-function reactor-generate() {
-  echo "hi"
-}
